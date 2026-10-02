@@ -226,9 +226,14 @@ async def rebuild_last_month_from_history():
 async def on_message(message):
     await bot.process_commands(message)
 
+    # Ignore commands
     if message.content.startswith("!"):
         return
 
+    # Only count messages from the voting channel
+    if message.channel.id != VOTE_CHANNEL_ID:
+        return
+    
     if not message.webhook_id:
         return
 
